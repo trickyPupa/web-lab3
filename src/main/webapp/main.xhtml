@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>я тима главная</title>
+    <h:outputStylesheet name="css/styles.css"/>
+</h:head>
+
+<h:body>
+<h:outputScript name="scripts/script.js"/>
+<h:outputScript name="scripts/graph.js"/>
+
+<header class="header">
+    <div class="fio">
+        Лабор Тимофей Владимирович
+    </div>
+    <div class="group">
+        P3225
+    </div>
+    <div class="variant">
+        Вариант 408966
+    </div>
+</header>
+
+<h:dataTable class="main">
+    <thead>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td>
+            <div class="graph">
+                <canvas id="canvas1" width="400" height="400"></canvas>
+                <script>
+                    graphInit();
+                    const canvas = document.getElementById('canvas1');
+                    canvas.addEventListener('click', (event) => byClick(event, canvas, R));
+                </script>
+            </div>
+        </td>
+        <td>
+            <h:form class="inputs-td">
+                <div class="inputs">
+                    <div class="x-container">
+                        <h:outputLabel class="text" for="x">
+                            Укажите X:
+                        </h:outputLabel>
+                        <h:selectOneMenu id="x" value="#{subscriptionController.subscriptions}">
+                            <f:selectItem id="x1" itemLabel="-5" itemValue="-5" />
+                            <f:selectItem id="x2" itemLabel="-4" itemValue="-4" />
+                            <f:selectItem id="x3" itemLabel="-3" itemValue="-3" />
+                            <f:selectItem id="x4" itemLabel="-2" itemValue="-2" />
+                            <f:selectItem id="x5" itemLabel="-1" itemValue="-1" />
+                            <f:selectItem id="x6" itemLabel="0" itemValue="0" />
+                            <f:selectItem id="x7" itemLabel="1" itemValue="1" />
+                            <f:selectItem id="x8" itemLabel="2" itemValue="2" />
+                            <f:selectItem id="x9" itemLabel="3" itemValue="3" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="y-container">
+                        <h:outputLabel class="text" id="y-label" for="y">
+                            Укажите Y (-5; 5):
+                        </h:outputLabel>
+                        <h:inputText id="y" value="#{user.login}"/>
+                    </div>
+                    <div class="r-container">
+                        <h:outputLabel class="text" for="r">Укажите R:</h:outputLabel>
+                        <ace:sliderEntry id="r" minValue="1" maxValue="4" step="0.5"/>
+                    </div>
+                </div>
+                <p id="text-error"></p>
+
+                <h:commandButton value="Подтвердить" action="#{resultBean.checkHit}"
+                                 styleClass="button" onclick="return validateForm()"/>
+            </h:form>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <div class="records center-wrapper">
+            <h:dataTable styleClass="records-table" value="#{}" var="result" rendered="#{not empty resultBean.results}">
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    #{result.x}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Y</f:facet>
+                    #{result.y}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    #{result.r}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Статус</f:facet>
+                    #{result.result}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Время выполнения, мс</f:facet>
+                    #{result.executionTime}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Дата и время</f:facet>
+                    #{result.datetime}
+                </h:column>
+            </h:dataTable>
+        </div>
+
+        <h:form>
+            <h:commandButton value="Очистить" action="#{resultBean.clearResults}"
+                             styleClass="clear-button" rendered="#{not empty resultBean.results}" update="result-table"/>
+        </h:form>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h:form>
+                <h:commandButton value="Перейти на титульную страницу"
+                                 action="index?faces-redirect=true"
+                                 styleClass="button"/>
+            </h:form>
+        </td>
+    </tr>
+    </tbody>
+</h:dataTable>
+</h:body>
+
+</html>
