@@ -8,14 +8,6 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- validate -->
-
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.pool_size" value="100"/>
-            <property name="hibernate.current_session_context_class" value="thread"/>
-            <property name="hibernate.default_schema" value="PUBLIC" />
-            <property name="hibernate.connection.url" value="jdbc:postgresql://postgres/web3"/>
-            <property name="hibernate.connection.password" value="s408966"/>
-            <property name="hibernate.connection.username" value="s408966"/>
         </properties>
     </persistence-unit>
 </persistence>
