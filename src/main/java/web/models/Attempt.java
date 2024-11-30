@@ -1,17 +1,15 @@
 package web.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 import web.validation.*;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@JavaBean
 @Entity
 @Table(name = "attempts")
 public class Attempt implements Serializable {
@@ -32,5 +30,5 @@ public class Attempt implements Serializable {
 
     private double executionTime;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

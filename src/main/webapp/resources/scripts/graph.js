@@ -35,11 +35,11 @@ function drawGrid(canvas, context) {
     }
 }
 
-function drawCircle(context, x, y, r) {
+function drawCircle(context, x, y, r, startAngle, endAngle) {
     context.beginPath();
     context.moveTo(x, y);
     context.fillStyle = fillColor;
-    context.arc(x, y, r, 0, Math.PI/2, false);
+    context.arc(x, y, r, startAngle, endAngle, false);
     context.closePath();
     context.fill();
 }
@@ -133,16 +133,20 @@ function drawCoords(canvas, context) {
 }
 
 function graphInit(){
-    const canvas = document.getElementById('canvas1') || document.getElementById('canvas2');
+    const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
 
     canvas.width = 400;
     canvas.height = 400;
 
     drawGrid(canvas, context);
-    drawCircle(context, canvas.width / 2, canvas.height / 2, R);
-    drawRect(context, canvas.width / 2, canvas.height / 2, -R / 2, -R);
-    drawTriangle(context, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 + R, canvas.width / 2 - R, canvas.height / 2);
+    drawCircle(context, canvas.width / 2, canvas.height / 2, R / 2, -Math.PI / 2, 0);
+    drawRect(context, canvas.width / 2, canvas.height / 2, -R, -R / 2);
+    drawTriangle(context, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 - R, canvas.width / 2 + R, canvas.height / 2);
     drawAxis(canvas, context);
     drawCoords(canvas, context);
+
+    canvas.addEventListener('click', (event) => byClick(event, canvas, R))
 }
+
+graphInit();

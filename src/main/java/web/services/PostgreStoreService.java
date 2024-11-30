@@ -1,5 +1,6 @@
 package web.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -11,11 +12,13 @@ import web.models.Attempt;
 
 import java.util.List;
 
-public class PostgreStoreService {
+@ApplicationScoped
+public class PostgreStoreService implements StoreService {
 
     @PersistenceContext(unitName = "web3")
     private EntityManager em;
 
+    @Override
     @Transactional
     public List<Attempt> getAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -28,10 +31,11 @@ public class PostgreStoreService {
     }
 
     @Transactional
-    public Attempt get(int id) {
+    public Attempt get(long id) {
         return em.find(Attempt.class, id);
     }
 
+    @Override
     @Transactional
     public void deleteAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -39,5 +43,10 @@ public class PostgreStoreService {
         Root<Attempt> root = cq.from(Attempt.class);
 
         em.createQuery(cq).executeUpdate();
+    }
+
+    @Transactional
+    public void save(Attempt attempt) {
+        em.persist(attempt);
     }
 }

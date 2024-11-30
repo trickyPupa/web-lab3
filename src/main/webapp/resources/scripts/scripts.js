@@ -28,7 +28,7 @@ function createError(message) {
 // валидация и отправка
 const checkX = (value) => {
     return new Promise((resolve, reject) => {
-        if (isNaN(value) || (-3) > value || value > 5) {
+        if (isNaN(value) || (-5) > value || value > 3) {
             reject("значение x некорректно");
         } else {
             resolve();
@@ -38,7 +38,7 @@ const checkX = (value) => {
 
 const checkY = (value) => {
     return new Promise((resolve, reject) => {
-        if (isNaN(value) || (-3) > value || value > 5) {
+        if (isNaN(value) || (-5) > value || value > 5) {
             reject("значение y некорректно");
         } else {
             resolve();
@@ -48,7 +48,7 @@ const checkY = (value) => {
 
 const checkR = (value) => {
     return new Promise((resolve, reject) => {
-        if (isNaN(value) || (1) > value || value > 5) {
+        if (isNaN(value) || (1) > value || value > 4) {
             reject("значение r некорректно");
         } else {
             resolve();
@@ -71,19 +71,16 @@ function validateForm() {
 function submitForm(event) {
     event.preventDefault();
     const x = document.getElementById("x");
-    const y = document.querySelector('.btn.active');
-    const r = document.querySelector('.r-checkbox:checked');
+    const y = document.getElementById('y');
+    const r = document.getElementById('r');
     createError("");
 
-    if (!y) {
-        createError("y не определен");
-    }
-    else if (!r) {
-        createError("r не определен");
-    }
-    else {
-        validateAndSend(x.value, y.value, r.value);
-    }
+    return validate(x, y, r)
+        .then(() => true)
+        .catch((e) => {
+            createError(e);
+            return false;
+        })
 }
 
 function validateAndSend(x, y, r) {
@@ -123,7 +120,7 @@ function sendData(x, y, r) {
 
 // отрисовка
 function drawDot(x, y, r, status) {
-    const canvas = document.getElementById('canvas1') || document.getElementById('canvas2');
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const formula = (coord, radius) => (200 + (4 * coord * 40) / radius);
     ctx.beginPath();
@@ -157,4 +154,11 @@ function byClick(event, canvas, R) {
     console.log(`Данные нажатия: (${xValue}, ${yValue}, ${r.value})`);
 
     validateAndSend(xValue, yValue, r.value);
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    });
 }
