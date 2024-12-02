@@ -49,4 +49,15 @@ public class PostgreStoreService implements StoreService {
     public void save(Attempt attempt) {
         em.persist(attempt);
     }
+
+    @Transactional
+    public int getCount() {
+        return 2;
+    }
+
+    @Transactional
+    public List<Attempt> getAttemptsList(int start, int count) {
+        return em.createQuery("select attempt from Attempt attempt", Attempt.class)
+                .setFirstResult(start).setMaxResults(count).getResultList();
+    }
 }

@@ -39,7 +39,7 @@ function drawCircle(context, x, y, r, startAngle, endAngle) {
     context.beginPath();
     context.moveTo(x, y);
     context.fillStyle = fillColor;
-    context.arc(x, y, r, startAngle, endAngle, false);
+    context.arc(x, y, r, startAngle, endAngle, true);
     context.closePath();
     context.fill();
 }
@@ -140,8 +140,8 @@ function graphInit(){
     canvas.height = 400;
 
     drawGrid(canvas, context);
-    drawCircle(context, canvas.width / 2, canvas.height / 2, R / 2, -Math.PI / 2, 0);
-    drawRect(context, canvas.width / 2, canvas.height / 2, -R, -R / 2);
+    drawCircle(context, canvas.width / 2, canvas.height / 2, R / 2, 0, -Math.PI / 2);
+    drawRect(context, canvas.width / 2, canvas.height / 2, -R, R / 2);
     drawTriangle(context, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 - R, canvas.width / 2 + R, canvas.height / 2);
     drawAxis(canvas, context);
     drawCoords(canvas, context);
@@ -149,4 +149,6 @@ function graphInit(){
     canvas.addEventListener('click', (event) => byClick(event, canvas, R))
 }
 
-graphInit();
+document.addEventListener('DOMContentLoaded', function() {
+    graphInit();
+})

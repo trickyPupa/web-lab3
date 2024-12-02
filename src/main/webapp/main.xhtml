@@ -12,8 +12,6 @@
 </h:head>
 
 <h:body>
-<h:outputScript name="scripts/scripts.js"/>
-<h:outputScript name="scripts/graph.js"/>
 
 <header class="header">
     <div class="fio">
@@ -27,7 +25,7 @@
     </div>
 </header>
 
-<h:dataTable class="main">
+<table class="main">
     <thead>
     </thead>
 
@@ -68,12 +66,8 @@
                     </div>
                     <div class="r-container">
                         <h:outputLabel class="text" for="r">Укажите R:</h:outputLabel>
-                        <h:inputText id="r" value="#{resultController.current.y}" placeholder="-5 ... 5" required="true">
-                            <f:validateDoubleRange minimum="-5" maximum="5"/>
-                            <f:attribute name="placeholder" value="-5 ... 5"/>
-                        </h:inputText>
-<!--                        <ace:sliderEntry id="r" value="resultController.current.r" minValue="1" maxValue="4" step="0.5"/>-->
-<!--                        <p:slider id="r" value="resultController.current.r" minValue="1" maxValue="4" step="0.5"/>-->
+                        <p:slider id="r" minValue="1" maxValue="4" step="0.5" for="r-input"/>
+                        <h:inputText id="r-input" value="#{resultController.current.r}"/>
                     </div>
                 </div>
                 <p id="text-error"></p>
@@ -86,7 +80,10 @@
     <tr>
         <td colspan="2">
         <div class="records center-wrapper">
-            <h:dataTable styleClass="records-table" value="#{resultController.getList}" var="result">
+            <p:dataTable id="table" value="#{attemptsList}" var="result" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         rows="10" lazy="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                         style="width: 750px" styleClass="table">
                 <h:column>
                     <f:facet name="header">X</f:facet>
                     #{result.x}
@@ -111,7 +108,7 @@
                     <f:facet name="header">Дата и время</f:facet>
                     #{result.createdAt}
                 </h:column>
-            </h:dataTable>
+            </p:dataTable>
         </div>
 
         <h:form>
@@ -130,13 +127,16 @@
         </td>
     </tr>
     </tbody>
-</h:dataTable>
+</table>
 
 <div id="scroll-down-btn">
     <button onclick="scrollToBottom()" title="Scroll Down">
         ↓
     </button>
 </div>
+
+<h:outputScript name="scripts/scripts.js"/>
+<h:outputScript name="scripts/graph.js"/>
 </h:body>
 
 </html>
