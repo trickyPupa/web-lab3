@@ -7,12 +7,15 @@ import web.validation.*;
 import java.beans.JavaBean;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @JavaBean
 @Entity
 @Table(name = "attempts")
 public class Attempt implements Serializable {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,4 +34,8 @@ public class Attempt implements Serializable {
     private double executionTime;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public String getCreatedAt() {
+        return createdAt.format(formatter);
+    }
 }

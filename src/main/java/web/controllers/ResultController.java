@@ -15,6 +15,7 @@ import web.dao.AttemptDAO;
 import web.services.ValidationService;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Named("resultController")
@@ -59,6 +60,10 @@ public class ResultController implements Serializable {
 
     public List<Attempt> getList() {
         return dao.getAll();
+    }
+
+    public String getListToString() {
+        return dao.getAll().toString();
     }
 
     public void clear() {

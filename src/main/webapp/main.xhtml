@@ -55,6 +55,7 @@
                             <f:selectItem id="x8" itemLabel="2" itemValue="2" />
                             <f:selectItem id="x9" itemLabel="3" itemValue="3" />
                         </h:selectOneMenu>
+                        <h:inputHidden id="x-hidden" value="#{resultController.current.x}"/>
                     </div>
                     <div id="y-container" class="container">
                         <h:outputLabel class="text" id="y-label" for="y">
@@ -64,18 +65,19 @@
                             <f:validateDoubleRange minimum="-5" maximum="5"/>
                             <f:attribute name="placeholder" value="-5 ... 5"/>
                         </h:inputText>
+                        <h:inputHidden id="y-hidden" value="#{resultController.current.y}"/>
                     </div>
                     <div id="r-container" class="container">
                         <h:outputLabel class="text" for="r">Укажите R:</h:outputLabel>
-                        <h:inputText id="r" styleClass="r" value="#{resultController.current.r}"/>
+                        <p:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>
                         <p:slider id="r-slider" styleClass="r-slider" minValue="1" maxValue="4" step="0.5" for="r"
-                            onSlide="console.log('11')"/>
+                                  onSlide="document.getElementById('inputs-form:r').value = ui.value; document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"/>
                     </div>
                 </div>
                 <p id="text-error"></p>
 
                 <p:commandButton ajax="true" value="Подтвердить" action="#{resultController.check}"
-                                 styleClass="button" onclick="submitForm()"/>
+                                 styleClass="button" onclick="submitForm()" id="submit-button"/>
             </h:form>
         </td>
     </tr>
@@ -86,30 +88,33 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                          rows="10" lazy="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
                          style="width: 750px" styleClass="records-table">
-                <h:column>
-                    <f:facet name="header">X</f:facet>
-                    #{result.x}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Y</f:facet>
-                    #{result.y}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">R</f:facet>
-                    #{result.r}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Статус</f:facet>
-                    #{result.result}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Время выполнения, мс</f:facet>
-                    #{result.executionTime}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Дата и время</f:facet>
-                    #{result.createdAt}
-                </h:column>
+                <p:column headerText="X">
+                    <h:outputText value="#{result.x}">
+                        <f:convertNumber type="number"
+                                         maxFractionDigits="3"
+                                         groupingUsed="false"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Y">
+                    <h:outputText value="#{result.y}">
+                        <f:convertNumber type="number"
+                                         maxFractionDigits="3"
+                                         groupingUsed="false"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="R">
+                    <h:outputText value="#{result.r}"/>
+                </p:column>
+                <p:column headerText="Статус" styleClass="#{result.result ? 'result-yes' : 'result-no'}">
+                    <h:outputText value="#{result.result ? 'Попал' : 'Не попал' }"/>
+                </p:column>
+                <p:column headerText="Время выполнения, мс">
+                    <h:outputText value="#{result.executionTime}"/>
+                </p:column>
+                <p:column headerText="Дата и время">
+                    <h:outputText value="#{result.createdAt}"/>
+                </p:column>
+
             </p:dataTable>
         </div>
         </td>
@@ -130,9 +135,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            <h:outputText value="#{resultController.attemptsList}" escape="false"/>
-        </td>
+        <td colspan="2"></td>
     </tr>
     </tbody>
 </table>

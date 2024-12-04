@@ -50,8 +50,8 @@
 
 /* Заголовки таблицы */
 .records-table th {
-    background-color: #ff69b4; /* Ярко-розовый фон */
-    color: white; /* Белый текст */
+    background-color: var(--main-pink); /* Ярко-розовый фон */
+    color: black; /* Белый текст */
     padding: 10px;
     text-align: center;
     font-weight: bold;
@@ -61,12 +61,14 @@
 .records-table td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #ffb6c1; /* Розовые границы */
+    /*border: 1px solid #ffb6c1; !* Розовые границы *!*/
+    border-width: 0;
+    border-radius: 10px;
 }
 
 /* Чередование строк */
 .records-table tr:nth-child(even) {
-    background-color: #fff0f5; /* Светло-розовый для чётных строк */
+    background-color: #ffd1d1; /* Светло-розовый для чётных строк */
 }
 
 .records-table tr:nth-child(odd) {
@@ -113,7 +115,7 @@
 }
 
 .x {
-    width: 100%;
+    width: 105%;
     border-color: var(--dark-pink);
     background-color: #fff0f5;
     color: #333;

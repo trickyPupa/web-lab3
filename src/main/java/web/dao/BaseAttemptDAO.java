@@ -17,7 +17,7 @@ public class BaseAttemptDAO implements AttemptDAO {
     @Override
     @Transactional
     public List<Attempt> getAll() {
-        return em.createQuery("SELECT a FROM Attempt a", Attempt.class)
+        return em.createQuery("SELECT a FROM Attempt a order by id desc", Attempt.class)
                 .getResultList();
     }
 
@@ -49,7 +49,7 @@ public class BaseAttemptDAO implements AttemptDAO {
 
     @Transactional
     public List<Attempt> getList(int start, int count) {
-        return em.createQuery("select a from Attempt a", Attempt.class)
+        return em.createQuery("select a from Attempt a order by id desc", Attempt.class)
                 .setFirstResult(start)
                 .setMaxResults(count)
                 .getResultList();

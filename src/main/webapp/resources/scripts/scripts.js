@@ -74,7 +74,11 @@ function validateAndSend(x, y, r) {
 }
 
 function sendData(x, y, r) {
+    document.getElementById('inputs-form:x-hidden').value = x;
+    document.getElementById('inputs-form:y-hidden').value = y;
+    document.getElementById('inputs-form:submit-button').click();
 
+    console.log("click sended")
 }
 
 // отрисовка
@@ -103,7 +107,7 @@ function byClick(event, canvas) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const R = 40 * r.value;
+    const R = 50 * r.value;
 
     const canvasX = x - canvas.width / 2;
     const canvasY = canvas.height / 2 - y;
@@ -114,11 +118,4 @@ function byClick(event, canvas) {
     console.log(`Данные нажатия: (${xValue}, ${yValue}, ${r.value})`);
 
     validateAndSend(xValue, yValue, r.value);
-}
-
-function scrollToBottom() {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-    });
 }
