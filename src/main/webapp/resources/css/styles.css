@@ -14,6 +14,7 @@
 	--error: red;
 
 	--checked: var(--main-pink);
+	--my-border-color: var(--dark-pink);
 }
 
 header {
@@ -41,19 +42,20 @@ body {
 
 .inputs{
 	line-height: 10px;
-	font-size: 1.4em;
+	font-size: 1.6em;
 	align-self: flex-start;
 }
 
-input[type=text] {
+input[type=text], .text {
 	border-color: var(--dark-pink);
+	width: 100%;
 }
 
-#x, #r-checkboxes-group, #y-buttons-group {
-	margin-top: 3%;
+.x, .r, .y, .r-slider {
+	margin-top: 4%;
 }
 
-button, input[type=button] {
+button, input[type=button], .button {
 	border: none;
 	border-radius: 10px;
 	text-decoration: none;
@@ -63,7 +65,7 @@ button, input[type=button] {
 	padding: 0.7em 1.7em;
 }
 
-button:hover, input[type=button]:hover, .btn.active {
+button:hover, .button:hover, input[type=button]:hover, .btn.active {
 	background: var(--main-pink);
 	box-shadow: none;
 	position: relative;
@@ -76,32 +78,16 @@ button:hover, input[type=button]:hover, .btn.active {
 	margin-top: auto;
 }
 
-.r-checkboxes-group {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
+.container {
+	margin-bottom: 8%;
+	margin-top: 8%;
 }
 
-.r-container, .x-container, .y-container {
-	margin-bottom: 6%;
-	margin-top: 6%;
-}
-
-label {
+label, .text {
 	display: flex;
 	align-items: center;
-}
-
-.r-checkbox {
-	accent-color: var(--checked);
-	width: 1.5em;
-	height: 1.5em;
-	appearance: none;
-	border: 2px solid #C71585;
-}
-
-.r-checkbox:checked {
-	background: #C71585;
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 /*таблица результатов*/
@@ -133,22 +119,22 @@ label {
 	color: inherit;
 }
 
-.records-table {
-	border: 2px var(--ultra-dark-pink) solid;
-	border-collapse: collapse;
-	margin-top: 2em;
-}
+/*.records-table {*/
+/*	border: 2px var(--ultra-dark-pink) solid;*/
+/*	border-collapse: collapse;*/
+/*	margin-top: 2em;*/
+/*}*/
 
-.records-table th, .records-table td {
-	padding: 1em;
-	border: 1px var(--dark-pink) solid;
-}
+/*.records-table th, .records-table td {*/
+/*	padding: 1em;*/
+/*	border: 1px var(--dark-pink) solid;*/
+/*}*/
 
 #text-error {
 	color: var(--error);
 	font-size: 1.7em;
 	height: 0.5em;
-	margin-top: -1.2em;
+	margin-top: 1.2em;
 	margin-bottom: 2em;
 }
 
@@ -158,24 +144,4 @@ label {
 
 .placeholder {
 	visibility: hidden;
-}
-
-#scroll-down-btn {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	z-index: 1000;
-}
-
-#scroll-down-btn button {
-	background-color: rgb(0, 0, 128);
-	color: white;
-	border: none;
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	font-size: 24px;
-	cursor: pointer;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	transition: background-color 0.3s;
 }

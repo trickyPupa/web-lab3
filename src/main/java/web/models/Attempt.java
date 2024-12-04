@@ -18,13 +18,13 @@ public class Attempt implements Serializable {
     private Long id;
 
     @ValidationX
-    private Double x;
+    private Double x = 0d;
 
     @ValidationY
-    private Double y;
+    private Double y = 0d;
 
     @ValidationR
-    private Double r;
+    private Double r = 4d;
 
     private boolean result;
 

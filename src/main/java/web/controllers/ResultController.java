@@ -3,45 +3,52 @@ package web.controllers;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import web.containers.AttemptContainer;
 import web.models.Attempt;
 import web.services.AreaCheckService;
-import web.services.StoreService;
+import web.services.AttemptsList;
+import web.dao.AttemptDAO;
 import web.services.ValidationService;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Named("resultController")
 @ApplicationScoped
-public class ResultController {
+public class ResultController implements Serializable {
     private static final Logger logger = LogManager.getLogger(ResultController.class);
 
+    @Inject
     @Getter
-    @Setter
-    private Attempt current = new Attempt();
+    private AttemptContainer current;
+
+    @Getter
+    @Inject
+    private AttemptsList attemptsList;
 
     @Inject
-    private StoreService storeService;
+    private AttemptDAO dao;
 
     @Inject
     private AreaCheckService areaCheckService;
 
-//    @Inject
-//    private ValidationService validationService;
+    @Inject
+    private ValidationService validationService;
 
-    public String check(Attempt attempt) {
+    public String check() {
         try {
-            current.setResult(areaCheckService.checkArea(current));
+            logger.info(current.get().toString());
+            if (!validate()) {
+                return null;
+            }
 
-            storeService.save(current);
-
-            current = new Attempt();
+            current.setResult(areaCheckService.checkArea(current.get()));
+            dao.save(current.get());
+            current.reset();
         }
         catch (Exception e) {
             ;
@@ -51,22 +58,18 @@ public class ResultController {
     }
 
     public List<Attempt> getList() {
-        return storeService.getAll();
+        return dao.getAll();
     }
 
     public void clear() {
-        ;
+        dao.deleteAll();
     }
 
     public boolean isEmpty() {
-        return true;
+        return dao.getAll().isEmpty();
     }
 
-    public void validate() {
-        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            Validator validator = factory.getValidator();
-
-            var a = validator.validate(current);
-        }
+    public boolean validate() {
+        return validationService.isValid(current.get());
     }
 }

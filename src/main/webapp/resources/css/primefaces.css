@@ -1,0 +1,131 @@
+/* Основной стиль слайдера */
+.ui-slider {
+    background: white;
+    border-width: 0;
+    height: 5px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 1.5em;
+    position: relative
+}
+
+/* Ручка (ползунок) слайдера */
+.ui-slider-handle {
+    background-color: #ffb6c1;
+    border: 2px solid var(--dark-pink);
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translate(0, -25%);
+    transition: transform 0.3s ease;
+    outline: none;
+}
+
+/* При наведении на ручку */
+.ui-slider-handle:hover {
+    transform: scale(1.15) translate(0, -25%); /* Увеличение ручки */
+
+}
+
+/* Активное состояние слайдера */
+.ui-slider .ui-slider-range {
+    background-color: var(--dark-pink); /* Цвет активного участка */
+    border-radius: 5px; /* Скругление активной полосы */
+}
+
+
+/* Основная таблица */
+.records-table {
+    border: 2px solid var(--dark-pink); /* Яркая розовая рамка */
+    border-collapse: collapse; /* Убрать двойные линии */
+    border-radius: 10px;
+    width: 10em;
+    background-color: #ffe4e1; /* Светло-розовый фон */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/* Заголовки таблицы */
+.records-table th {
+    background-color: #ff69b4; /* Ярко-розовый фон */
+    color: white; /* Белый текст */
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Ячейки таблицы */
+.records-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ffb6c1; /* Розовые границы */
+}
+
+/* Чередование строк */
+.records-table tr:nth-child(even) {
+    background-color: #fff0f5; /* Светло-розовый для чётных строк */
+}
+
+.records-table tr:nth-child(odd) {
+    background-color: #ffffff; /* Белый для нечётных строк */
+}
+
+/* Эффект наведения на строки */
+.records-table tr:hover {
+    background-color: #ffb6c1; /* Розовый фон при наведении */
+    cursor: pointer;
+}
+
+/* Пагинатор */
+.ui-paginator {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.ui-paginator a {
+    padding: 0.7em 1.7em;
+    border: 1px solid black;
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+.ui-paginator a:hover {
+    background-color: #ffb6c1;
+    color: #000;
+}
+
+.ui-paginator .ui-paginator-current {
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+
+.x-container {
+    line-height: 10px;
+    font-size: 1.4em;
+    align-self: flex-start;
+}
+
+.x {
+    width: 100%;
+    border-color: var(--dark-pink);
+    background-color: #fff0f5;
+    color: #333;
+    cursor: pointer;
+}
+
+.x:hover {
+    border-color: var(--my-border-color); /* Цвет рамки при наведении */
+}
+
+.x:focus {
+    outline: none; /* Убираем стандартное выделение */
+    border-color: #ff69b4; /* Акцент на рамке */
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5); /* Тень */
+}

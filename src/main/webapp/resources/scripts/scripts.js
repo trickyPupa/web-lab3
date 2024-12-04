@@ -1,23 +1,3 @@
-const url = "controller"
-
-// вспомогательные к html
-function toggleActive(element, cls) {
-    const elements = document.querySelectorAll(cls);
-    elements.forEach(el => el.classList.remove('active'));
-
-    element.classList.add('active');
-}
-
-function checkOnly(checkbox, cls) {
-    const checkboxes = document.querySelectorAll(cls);
-
-    checkboxes.forEach((chk) => {
-        if (chk !== checkbox) {
-            chk.checked = false;
-        }
-    });
-}
-
 function createError(message) {
     console.log(message);
     const error = document.getElementById("text-error");
@@ -28,8 +8,9 @@ function createError(message) {
 // валидация и отправка
 const checkX = (value) => {
     return new Promise((resolve, reject) => {
-        if (isNaN(value) || (-5) > value || value > 3) {
+        if (isNaN(value) || (-5) > value || value > 5) {
             reject("значение x некорректно");
+            console.log(value);
         } else {
             resolve();
         }
@@ -40,6 +21,7 @@ const checkY = (value) => {
     return new Promise((resolve, reject) => {
         if (isNaN(value) || (-5) > value || value > 5) {
             reject("значение y некорректно");
+            console.log(value);
         } else {
             resolve();
         }
@@ -50,6 +32,7 @@ const checkR = (value) => {
     return new Promise((resolve, reject) => {
         if (isNaN(value) || (1) > value || value > 4) {
             reject("значение r некорректно");
+            console.log(value);
         } else {
             resolve();
         }
@@ -64,15 +47,13 @@ function validate(x, y, r) {
     ]);
 }
 
-function validateForm() {
-    return true;
-}
+function submitForm() {
+    // event.preventDefault();
+    const x = document.querySelector(".x");
+    const y = document.querySelector('.y');
+    const r = document.querySelector('.r');
 
-function submitForm(event) {
-    event.preventDefault();
-    const x = document.getElementById("x");
-    const y = document.getElementById('y');
-    const r = document.getElementById('r');
+    console.log(x, y, r);
     createError("");
 
     return validate(x, y, r)
@@ -93,29 +74,7 @@ function validateAndSend(x, y, r) {
 }
 
 function sendData(x, y, r) {
-    fetch(url + `?x=${x}&y=${y}&r=${r}`, { method: "GET" })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText)
-            }
-            return response.text();
-        })
-        .then(html => {
-            // if (data.message){
-            //     createError(data.message);
-            // }
-            // else {
-            //     addToTable(x, y, r, data.status, data.time, new Date().toLocaleTimeString());
-            //     console.log("row added");
-            //     drawDot(x, y, r, data.status);
-            // }
-            document.open();
-            document.write(html);
-            document.close();
-        })
-        .catch((err) => {
-            createError(err)
-        });
+
 }
 
 // отрисовка
@@ -133,8 +92,8 @@ function drawDot(x, y, r, status) {
 }
 
 // отправка по нажатию
-function byClick(event, canvas, R) {
-    const r = document.querySelector('.r-checkbox:checked');
+function byClick(event, canvas) {
+    const r = document.querySelector('.r');
 
     if (!r) {
         createError("r не определен");
@@ -144,6 +103,7 @@ function byClick(event, canvas, R) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
+    const R = 40 * r.value;
 
     const canvasX = x - canvas.width / 2;
     const canvasY = canvas.height / 2 - y;

@@ -1,4 +1,3 @@
-const R = 160;
 const fillColor = "lightpink";
 
 function drawAxis(canvas, context) {
@@ -35,11 +34,11 @@ function drawGrid(canvas, context) {
     }
 }
 
-function drawCircle(context, x, y, r, startAngle, endAngle) {
+function drawCircle(context, x, y, r, startAngle, endAngle, counterclockwise=false) {
     context.beginPath();
     context.moveTo(x, y);
     context.fillStyle = fillColor;
-    context.arc(x, y, r, startAngle, endAngle, true);
+    context.arc(x, y, r, startAngle, endAngle, counterclockwise);
     context.closePath();
     context.fill();
 }
@@ -63,7 +62,7 @@ function drawTriangle(context, x1, y1, x2, y2, x3, y3) {
     context.fill();
 }
 
-function drawCoords(canvas, context) {
+function drawCoords(canvas, context, R) {
 	const centerX = canvas.width / 2;
 	const centerY = canvas.height / 2;
 	const gap = 30;
@@ -136,19 +135,34 @@ function graphInit(){
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
 
+    // document.querySelector('.r-slider').value = 2;
+
+    drawGraph(canvas, context);
+
+    canvas.addEventListener('click', (event) => byClick(event, canvas));
+}
+
+function drawGraph(canvas, context) {
+    const rValue = document.querySelector('.r').value
+    if (!rValue){
+        return;
+    }
+    const R = 40 * rValue;
+
     canvas.width = 400;
     canvas.height = 400;
 
     drawGrid(canvas, context);
-    drawCircle(context, canvas.width / 2, canvas.height / 2, R / 2, 0, -Math.PI / 2);
+    drawCircle(context, canvas.width / 2, canvas.height / 2, R / 2, 0, Math.PI / 2, false);
     drawRect(context, canvas.width / 2, canvas.height / 2, -R, R / 2);
     drawTriangle(context, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 - R, canvas.width / 2 + R, canvas.height / 2);
     drawAxis(canvas, context);
-    drawCoords(canvas, context);
-
-    canvas.addEventListener('click', (event) => byClick(event, canvas, R))
+    drawCoords(canvas, context, R);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
+//     graphInit();
+// })
+window.onload = function () {
     graphInit();
-})
+};

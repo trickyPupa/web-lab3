@@ -1,0 +1,33 @@
+.clock {
+    color: var(--dark-pink);
+    font-family: monospace;
+    font-size: 1.5em;
+    /*font-weight: bold;*/
+    background-color: #ffe9ec;
+    padding: 3em 4em;
+    border: 2px solid var(--my-border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(255, 105, 180, 0.3);
+    text-align: center;
+    display: inline-block;
+    transition: all 0.3s ease;
+
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.clock:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(255, 105, 180, 0.5);
+}
+
+.buttons-container {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
+    align-items: start;
+}
+
+.to-main-button {
+    padding: 1em 3em;
+}

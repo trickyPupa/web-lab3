@@ -8,6 +8,7 @@
 <h:head>
     <title>я тима индекс</title>
     <h:outputStylesheet name="css/styles.css"/>
+    <h:outputStylesheet name="css/index.css"/>
 </h:head>
 
 <h:body>
@@ -24,13 +25,14 @@
     </header>
 
     <h:form id="form" styleClass="buttons-container">
-<!--        <canvas id="clock" width="390" height="390"></canvas>-->
         <div id="clock" class="clock">
             loading
         </div>
-        <h:commandButton value="На главную"
-                         action="main?faces-redirect=true"
-                         styleClass="button"/>
+        <div>
+            <h:commandButton value="На главную"
+                             action="main?faces-redirect=true"
+                             styleClass="button to-main-button"/>
+        </div>
     </h:form>
 </h:body>
 

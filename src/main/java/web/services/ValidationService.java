@@ -1,4 +1,7 @@
 package web.services;
 
-public class ValidationService {
+import web.models.Attempt;
+
+public interface ValidationService {
+    public boolean isValid(Attempt attempt);
 }
