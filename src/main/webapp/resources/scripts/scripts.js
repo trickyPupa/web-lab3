@@ -78,6 +78,9 @@ function sendData(x, y, r) {
     document.getElementById('inputs-form:y-hidden').value = y;
     document.getElementById('inputs-form:submit-button').click();
 
+    document.getElementById('inputs-form:x-hidden').value = null;
+    document.getElementById('inputs-form:y-hidden').value = null;
+
     console.log("click sended")
 }
 
@@ -85,7 +88,7 @@ function sendData(x, y, r) {
 function drawDot(x, y, r, status) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const formula = (coord, radius) => (200 + (4 * coord * 40) / radius);
+    const formula = (coord, radius) => (300);
     ctx.beginPath();
     ctx.fillStyle = status ? '#52cf41' : '#EE204D';
     ctx.moveTo(200, 200);
@@ -93,6 +96,48 @@ function drawDot(x, y, r, status) {
     ctx.fill();
     ctx.closePath();
     console.log("dot has been drawn");
+}
+
+function drawDots(coordinatesList, rrr) {
+    if (!rrr) return;
+
+    const xList = coordinatesList.map((coordinate) => coordinate.x);
+    const yList = coordinatesList.map((coordinate) => coordinate.y);
+    const rList = coordinatesList.map((coordinate) => coordinate.r);
+    const hitList = coordinatesList.map((coordinate) => coordinate.result);
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    const rValue = width / 2.5
+
+    drawGraph();
+
+    drawDots1();
+
+    function convertXToCanvasCoordinate(x, r, canvasR) {
+        return (x / r * canvasR + width / 2);
+    }
+
+    function convertYToCanvasCoordinate(y, r, canvasR) {
+        return (-y / r * canvasR + height / 2);
+    }
+
+    function drawDots1() {
+        for (let i = 0; i < xList.length; i++) {
+            const x = convertXToCanvasCoordinate(xList[i] * rrr / rList[i], rList[i], rValue * rrr / rList[i]);
+            const y = convertYToCanvasCoordinate(yList[i] * rrr / rList[i], rList[i], rValue * rrr / rList[i]);
+            if (hitList[i]) {
+                ctx.fillStyle = '#52cf41'
+            } else {
+                ctx.fillStyle = '#EE204D'
+            }
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
 }
 
 // отправка по нажатию

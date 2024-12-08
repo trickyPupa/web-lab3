@@ -11,3 +11,26 @@ helios connection:
 ssh -p 2222 s408966@helios.cs.ifmo.ru
 ssh -p 2222 -L 43485:localhost:43485 s408966@helios.cs.ifmo.ru
 ssh -p 2222 -L 43490:localhost:43490 s408966@helios.cs.ifmo.ru
+
+
+<!--                <h:commandButton value="Подтвердить" styleClass="submit-btn">-->
+<!--                    <f:ajax execute="@form"-->
+<!--                            listener="#{resultController.check}"-->
+<!--                            render="@form records-table"/>-->
+<!--                </h:commandButton>-->
+
+
+<!--    <h:form id="update-radius">-->
+<!--        <h:inputHidden id="radius" value="#{resultController.current.r}"/>-->
+<!--        <h:commandButton id="updateCanvas" styleClass="hidden">-->
+<!--            <f:ajax execute="@form"-->
+<!--                    listener="#{resultsController.updateCanvas(resultController.current.r)}"-->
+<!--                    render="@form results-table"/>-->
+<!--        </h:commandButton>-->
+<!--    </h:form>-->
+
+<!--                <h:commandButton value="Подтвердить" styleClass="clear-button">-->
+<!--                    <f:ajax execute="@form"-->
+<!--                            listener="#{resultController.check}"-->
+<!--                            render="@form records-table"/>-->
+<!--                </h:commandButton>-->
