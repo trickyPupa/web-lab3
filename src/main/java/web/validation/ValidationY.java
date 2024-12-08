@@ -1,9 +1,9 @@
 package web.validation;
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

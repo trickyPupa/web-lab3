@@ -1,9 +1,9 @@
 package web.services;
 
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.log4j.Log4j2;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
@@ -22,7 +22,6 @@ public class AttemptsList extends LazyDataModel<Attempt> implements Serializable
     @Inject
     private BaseAttemptDAO service;
 
-    @Override
     public int count(Map<String, FilterMeta> map) {
         return service.getCount();
     }

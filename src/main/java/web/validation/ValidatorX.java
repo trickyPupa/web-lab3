@@ -1,12 +1,14 @@
 package web.validation;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ValidatorX implements ConstraintValidator<ValidationX, Double> {
-    private final Set<Double> validXValues = Set.of(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d);
+    private final Set<Double> validXValues = new HashSet<>();
+    //Set.of(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d);
 
     @Override
     public boolean isValid(Double value, ConstraintValidatorContext context) {

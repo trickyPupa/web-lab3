@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
 
 <h:head>
     <meta charset="UTF-8"/>
@@ -68,10 +69,13 @@
                         <h:inputHidden id="y-hidden" value="#{resultController.current.y}"/>
                     </div>
                     <div id="r-container" class="container">
-                        <h:outputLabel class="text" for="r">Укажите R:</h:outputLabel>
-                        <p:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>
-                        <p:slider id="r-slider" styleClass="r-slider" minValue="1" maxValue="4" step="0.5" for="r"
-                                  onSlide="document.getElementById('inputs-form:r').value = ui.value; document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"/>
+                        <h:outputLabel class="text">Укажите R:</h:outputLabel>
+<!--                        <p:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>-->
+<!--                        <p:slider id="r-slider" styleClass="r-slider" minValue="1" maxValue="4" step="0.5" for="r"-->
+<!--                                  onSlide="document.getElementById('inputs-form:r').value = ui.value; document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"/>-->
+                        <ace:sliderEntry value="#{resultController.current.r}" >
+                            <ace:ajax event="slide" execute="@this" render="sliderValueOutput" />
+                        </ace:sliderEntry>
                     </div>
                 </div>
                 <p id="text-error"></p>

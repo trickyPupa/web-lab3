@@ -1,6 +1,6 @@
 package web.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import web.models.Attempt;
 
 import java.io.Serializable;

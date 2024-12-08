@@ -1,8 +1,8 @@
 package web.containers;
 
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import lombok.experimental.Delegate;
 import web.models.Attempt;
 

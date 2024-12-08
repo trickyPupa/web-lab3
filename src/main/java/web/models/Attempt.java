@@ -1,16 +1,14 @@
 package web.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import web.validation.*;
 
-import java.beans.JavaBean;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
-@JavaBean
 @Entity
 @Table(name = "attempts")
 public class Attempt implements Serializable {

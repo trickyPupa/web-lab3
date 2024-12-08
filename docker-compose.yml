@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: 7890
+      POSTGRES_USER: tpupa
+      POSTGRES_DB: tim
+    ports:
+      - "5432:5432"
+    networks:
+      - network
+
+  wildfly:
+    build:
+      context: .
+    container_name: wildfly-server
+    environment:
+      POSTGRES_USER: tpupa
+      POSTGRES_PASSWORD: 7890
+      POSTGRES_DB: tim
+    ports:
+      - "8080:8080"
+      - "10100:10100"
+    depends_on:
+      - postgres
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
