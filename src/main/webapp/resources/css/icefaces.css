@@ -1,0 +1,35 @@
+/* Основной стиль слайдера */
+.ui-sliderentry {
+    background: white;
+    border-width: 0;
+    height: 5px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 1.5em;
+    position: relative
+}
+
+/* Ручка (ползунок) слайдера */
+.ui-slider-handle {
+    background-color: #ffb6c1;
+    border: 2px solid var(--dark-pink);
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translate(0, -25%);
+    transition: transform 0.3s ease;
+    outline: none;
+}
+
+/* При наведении на ручку */
+.ui-slider-handle:hover {
+    transform: scale(1.15) translate(0, -25%); /* Увеличение ручки */
+
+}
+
+/* Активное состояние слайдера */
+.ui-sliderentry .ui-slider-range {
+    background-color: var(--dark-pink); /* Цвет активного участка */
+    border-radius: 5px; /* Скругление активной полосы */
+}

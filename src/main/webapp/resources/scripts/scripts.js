@@ -61,7 +61,7 @@ function submitForm() {
         .catch((e) => {
             createError(e);
             return false;
-        })
+        });
 }
 
 function validateAndSend(x, y, r) {
@@ -118,4 +118,14 @@ function byClick(event, canvas) {
     console.log(`Данные нажатия: (${xValue}, ${yValue}, ${r.value})`);
 
     validateAndSend(xValue, yValue, r.value);
+}
+
+function handleSliderChange() {
+    let sliderValue = ice.ace.instance('inputs-form:slider').getValue();
+    sliderValue = Math.round(sliderValue / 0.5) * 0.5;
+
+    document.getElementById('inputs-form:r').value = sliderValue;
+    ice.ace.instance('inputs-form:slider').setValue(sliderValue);
+
+    graphInit();
 }

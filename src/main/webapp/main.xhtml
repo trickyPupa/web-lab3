@@ -14,6 +14,7 @@
 <h:body>
 <h:outputStylesheet name="css/styles.css"/>
 <h:outputStylesheet name="css/primefaces.css"/>
+<h:outputStylesheet name="css/icefaces.css"/>
 
 <header class="header">
     <div class="fio">
@@ -47,7 +48,7 @@
                         </h:outputLabel>
                         <h:selectOneMenu id="x" value="#{resultController.current.x}" styleClass="x">
                             <f:selectItems value="#{resultController.current.getXValues()}"/>
-                            <f:ajax event="blur" render="ч" execute="@this" />
+                            <f:ajax event="blur" render="x x-hidden" execute="@this" />
                         </h:selectOneMenu>
                         <h:inputHidden id="x-hidden" value="#{resultController.current.x}"/>
                     </div>
@@ -56,7 +57,7 @@
                             Укажите Y:
                         </h:outputLabel>
                         <h:inputText id="y" styleClass="y" value="#{resultController.current.y}" required="true">
-                            <f:ajax event="blur" render="н" execute="@this" />
+                            <f:ajax event="blur" render="y y-hidden" execute="@this" />
                             <f:validateDoubleRange minimum="-5" maximum="5"/>
                             <f:convertNumber />
                         </h:inputText>
@@ -64,24 +65,23 @@
                     </div>
                     <div id="r-container" class="container">
                         <h:outputLabel class="text">Укажите R:</h:outputLabel>
-                        <h:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>
+                        <h:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true"/>
                         <ace:sliderEntry value="#{resultController.current.r}"
                                          max="4"
                                          min="1"
-                                         stepPercent="16.6667"
+                                         stepPercent="0.1"
+                                         onSlide="handleSliderChange();"
                                          animate="true"
-                                         length="200px">
-<!--                                         onSlide="-->
-<!--                                         document.getElementById('inputs-form:r').value = ui.value;-->
-<!--                                         document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"-->
-                            <ace:ajax event="slide" execute="@this" render="r" />
+                                         length="200px"
+                                         id="slider">
+                            <ace:ajax event="slide" execute="@this" render="r" onComplete=""/>
                         </ace:sliderEntry>
                     </div>
                 </div>
                 <p id="text-error"></p>
 
                 <h:commandButton ajax="true" value="Подтвердить" action="#{resultController.check}"
-                                 styleClass="button" id="submit-button"/>
+                                 styleClass="button" id="submit-button" render="@form"/>
             </h:form>
         </td>
     </tr>

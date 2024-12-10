@@ -13,6 +13,6 @@ public class ValidatorX implements ConstraintValidator<ValidationX, Double> {
     @Override
     public boolean isValid(Double value, ConstraintValidatorContext context) {
 //        return value != null && validXValues.contains(value);
-        return value != null && value <= 3.0 && value >= -5.0;
+        return value != null && value <= 5.0 && value >= -5.0;
     }
 }
