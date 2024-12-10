@@ -10,6 +10,8 @@ services:
       - "5432:5432"
     networks:
       - network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
   wildfly:
     build:
@@ -26,7 +28,13 @@ services:
       - postgres
     networks:
       - network
+    volumes:
+      - wildfly-deployments:/opt/jboss/wildfly/standalone/deployments
 
 networks:
   network:
     driver: bridge
+
+volumes:
+  postgres-data:
+  wildfly-deployments:

@@ -7,12 +7,15 @@ import web.validation.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "attempts")
 public class Attempt implements Serializable {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final List<Double> X_VALUES = Arrays.asList(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,7 @@ public class Attempt implements Serializable {
     private Double y = 0d;
 
     @ValidationR
-    private Double r = 4d;
+    private Double r = 2d;
 
     private boolean result;
 

@@ -39,22 +39,15 @@
             </div>
         </td>
         <td>
-            <h:form class="inputs-td" id="inputs-form">
+            <h:form class="inputs-td" id="inputs-form" onsubmit="return submitForm()">
                 <div class="inputs">
                     <div id="x-container" class="container">
                         <h:outputLabel class="text" for="x">
                             Укажите X:
                         </h:outputLabel>
                         <h:selectOneMenu id="x" value="#{resultController.current.x}" styleClass="x">
-                            <f:selectItem id="x1" itemLabel="-5" itemValue="-5" />
-                            <f:selectItem id="x2" itemLabel="-4" itemValue="-4" />
-                            <f:selectItem id="x3" itemLabel="-3" itemValue="-3" />
-                            <f:selectItem id="x4" itemLabel="-2" itemValue="-2" />
-                            <f:selectItem id="x5" itemLabel="-1" itemValue="-1" />
-                            <f:selectItem id="x6" itemLabel="0" itemValue="0" />
-                            <f:selectItem id="x7" itemLabel="1" itemValue="1" />
-                            <f:selectItem id="x8" itemLabel="2" itemValue="2" />
-                            <f:selectItem id="x9" itemLabel="3" itemValue="3" />
+                            <f:selectItems value="#{resultController.current.getXValues()}"/>
+                            <f:ajax event="blur" render="ч" execute="@this" />
                         </h:selectOneMenu>
                         <h:inputHidden id="x-hidden" value="#{resultController.current.x}"/>
                     </div>
@@ -62,31 +55,33 @@
                         <h:outputLabel class="text" id="y-label" for="y">
                             Укажите Y:
                         </h:outputLabel>
-                        <h:inputText id="y" styleClass="y" value="#{resultController.current.y}" placeholder="-5 ... 5" required="true">
+                        <h:inputText id="y" styleClass="y" value="#{resultController.current.y}" required="true">
+                            <f:ajax event="blur" render="н" execute="@this" />
                             <f:validateDoubleRange minimum="-5" maximum="5"/>
-                            <f:attribute name="placeholder" value="-5 ... 5"/>
+                            <f:convertNumber />
                         </h:inputText>
                         <h:inputHidden id="y-hidden" value="#{resultController.current.y}"/>
                     </div>
                     <div id="r-container" class="container">
                         <h:outputLabel class="text">Укажите R:</h:outputLabel>
-                        <p:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>
-<!--                        <p:slider id="r-slider" styleClass="r-slider" minValue="1" maxValue="4" step="0.5" for="r"-->
-<!--                                  onSlide="document.getElementById('inputs-form:r').value = ui.value; document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"/>-->
+                        <h:inputText id="r" styleClass="r" value="#{resultController.current.r}" readonly="true" oninput="graphInit();"/>
                         <ace:sliderEntry value="#{resultController.current.r}"
-                                         maxValue="4"
-                                         minValue="1"
-                                         step="0.5"
+                                         max="4"
+                                         min="1"
+                                         stepPercent="16.6667"
                                          animate="true"
-                                         onSlide="">
-                            <ace:ajax event="slide" execute="@this" render="sliderValueOutput" />
+                                         length="200px">
+<!--                                         onSlide="-->
+<!--                                         document.getElementById('inputs-form:r').value = ui.value;-->
+<!--                                         document.getElementById('inputs-form:r').dispatchEvent(new Event('input'));"-->
+                            <ace:ajax event="slide" execute="@this" render="r" />
                         </ace:sliderEntry>
                     </div>
                 </div>
                 <p id="text-error"></p>
 
-                <p:commandButton ajax="true" value="Подтвердить" action="#{resultController.check}"
-                                 styleClass="button" onclick="submitForm()" id="submit-button"/>
+                <h:commandButton ajax="true" value="Подтвердить" action="#{resultController.check}"
+                                 styleClass="button" id="submit-button"/>
             </h:form>
         </td>
     </tr>
@@ -131,13 +126,13 @@
     <tr>
         <td>
             <h:form>
-                <p:commandButton ajax="true" value="Очистить" action="#{resultController.clear}"
+                <h:commandButton ajax="true" value="Очистить" action="#{resultController.clear}"
                                  styleClass="clear-button button" update="records-table"/>
             </h:form>
         </td>
         <td>
             <h:form>
-                <p:commandButton value="Перейти на титульную страницу"
+                <h:commandButton value="Перейти на титульную страницу"
                                  action="index?faces-redirect=true"
                                  styleClass="button"/>
             </h:form>

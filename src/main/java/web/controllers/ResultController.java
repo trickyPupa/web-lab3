@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import web.containers.AttemptContainer;
@@ -18,10 +19,10 @@ import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Log4j2
 @Named("resultController")
 @ApplicationScoped
 public class ResultController implements Serializable {
-    private static final Logger logger = LogManager.getLogger(ResultController.class);
 
     @Inject
     @Getter
@@ -42,10 +43,11 @@ public class ResultController implements Serializable {
 
     public String check() {
         try {
-            logger.info(current.get().toString());
+            log.info(current.get().toString());
             if (!validate()) {
                 return null;
             }
+            log.info("validation ok");
 
             current.setResult(areaCheckService.checkArea(current.get()));
             dao.save(current.get());
@@ -55,7 +57,7 @@ public class ResultController implements Serializable {
             ;
         }
 
-        return "main?faces-redirect=true";
+        return "main";
     }
 
     public List<Attempt> getList() {

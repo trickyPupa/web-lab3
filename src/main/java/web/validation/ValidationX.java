@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {ValidatorX.class})
 public @interface ValidationX {
-    String message() default "Некорректная координата x";
+    String message() default "Incorrect x coordinate";
 
     Class<?>[] groups() default {};
 
