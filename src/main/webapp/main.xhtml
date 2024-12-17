@@ -81,17 +81,24 @@
                 <p id="text-error"></p>
 
                 <h:commandButton ajax="true" value="Подтвердить" action="#{resultController.check}"
-                                 styleClass="button" id="submit-button" render="@form"/>
+                                 styleClass="button" id="submit-button" render="@form records-table"/>
             </h:form>
         </td>
     </tr>
     <tr>
         <td colspan="2">
         <div class="records center-wrapper">
-            <p:dataTable id="records-table" value="#{resultController.attemptsList}" var="result" paginator="true"
+            <p:dataTable id="records-table"
+                         value="#{resultController.attemptsList}"
+                         var="result"
+                         paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                         rows="10" lazy="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
-                         style="width: 750px" styleClass="records-table">
+                         rows="10"
+                         lazy="true"
+                         paginatorPosition="bottom"
+                         paginatorAlwaysVisible="true"
+                         style="width: 750px"
+                         styleClass="records-table">
                 <p:column headerText="X">
                     <h:outputText value="#{result.x}">
                         <f:convertNumber type="number"
@@ -109,7 +116,7 @@
                 <p:column headerText="R">
                     <h:outputText value="#{result.r}"/>
                 </p:column>
-                <p:column headerText="Статус" styleClass="#{result.result ? 'result-yes' : 'result-no'}">
+                <p:column headerText="Статус">
                     <h:outputText value="#{result.result ? 'Попал' : 'Не попал' }"/>
                 </p:column>
                 <p:column headerText="Время выполнения, мс">

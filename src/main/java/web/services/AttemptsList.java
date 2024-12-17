@@ -22,14 +22,9 @@ public class AttemptsList extends LazyDataModel<Attempt> implements Serializable
     @Inject
     private BaseAttemptDAO service;
 
-    public int count(Map<String, FilterMeta> map) {
-        return service.getCount();
-    }
-
     @Override
     public List<Attempt> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filters) {
         List<Attempt> attempts = service.getList(first, pageSize);
-        log.info(attempts.toString());
         setRowCount(service.getCount());
         return attempts;
     }
