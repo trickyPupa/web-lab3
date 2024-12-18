@@ -15,26 +15,25 @@ import java.util.List;
 @Table(name = "attempts")
 public class Attempt implements Serializable {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    public static final List<Double> X_VALUES = Arrays.asList(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ValidationX
-    private Double x = 0.0;
+    private Double x;
 
     @ValidationY
-    private Double y = 0.0;
+    private Double y;
 
     @ValidationR
-    private Double r = 2.0;
+    private Double r;
 
     private boolean result;
 
     private double executionTime;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     public String getCreatedAt() {
         return createdAt.format(formatter);

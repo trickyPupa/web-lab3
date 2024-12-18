@@ -45,16 +45,16 @@
                     <h:outputLabel class="text" for="x">
                         Укажите X:
                     </h:outputLabel>
-                    <h:selectOneMenu id="x" value="#{attemptContainer.x}" styleClass="x">
-                        <f:selectItems value="#{attemptContainer.getXValues()}"/>
+                    <h:selectOneMenu id="x" value="#{point.x}" styleClass="x">
+                        <f:selectItems value="#{point.getXValues()}"/>
                     </h:selectOneMenu>
                 </div>
                 <div id="y-container" class="container">
                     <h:outputLabel class="text" id="y-label" for="y">
                         Укажите Y:
                     </h:outputLabel>
-                    <h:inputText id="y" styleClass="y" value="#{attemptContainer.y}" required="true">
-                        <f:convertNumber />
+                    <h:inputText id="y" styleClass="y" value="#{point.y}" required="true">
+                        <f:convertNumber/>
                     </h:inputText>
                 </div>
                 <div id="r-container" class="container">
@@ -66,7 +66,7 @@
                                      length="210px"
                                      stepPercent="25"
                                      axis="x"
-                                     value="#{attemptContainer.r}"
+                                     value="#{point.r}"
                                      onSlideEnd="onSliderMove(event)"
                                      clickableRail="true"/>
                 </div>
@@ -75,7 +75,7 @@
             <ace:messages id="messages" styleClass="messages" globalOnly="true" showSummary="true" />
 
             <h:commandButton value="Подтвердить"
-                             action="#{resultController.check(true)}"
+                             action="#{resultController.submit(true)}"
                              styleClass="button"
                              id="submit-button"
                              onclick="submitForm();">
@@ -136,11 +136,11 @@
     <tr>
         <td colspan="2">
             <h:form id="hidden-form" style="display: none;">
-                <h:inputHidden id="x-hidden" value="#{attemptContainer.x}"/>
-                <h:inputHidden id="y-hidden" value="#{attemptContainer.y}"/>
-                <h:inputHidden id="r-hidden" value="#{attemptContainer.r}"/>
+                <h:inputHidden id="x-hidden" value="#{point.x}"/>
+                <h:inputHidden id="y-hidden" value="#{point.y}"/>
+                <h:inputHidden id="r-hidden" value="#{point.r}"/>
 
-                <h:commandButton value="Подтвердить" style="display: none" action="#{resultController.check}" id="hidden-submit-button">
+                <h:commandButton value="Подтвердить" style="display: none" action="#{resultController.submit}" id="hidden-submit-button">
                     <f:ajax execute="@form" render="inputs-form:records-table" />
                 </h:commandButton>
             </h:form>

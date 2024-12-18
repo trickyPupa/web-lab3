@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @ApplicationScoped
 public class AreaCheckService implements Serializable {
-    public boolean checkArea(Attempt attempt) {
+    public boolean checkAreaHit(Attempt attempt) {
         double x = attempt.getX(), y = attempt.getY(), r = attempt.getR();
 
         if (x >= 0 && y >= 0 && y <= r - x) {

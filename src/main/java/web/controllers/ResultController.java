@@ -6,9 +6,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.extern.log4j.Log4j2;
-import web.containers.AttemptContainer;
-import web.services.AreaCheckService;
+import web.containers.PointData;
+import web.models.Attempt;
 import web.dao.AttemptDAO;
+import web.services.AttemptFactory;
 import web.services.ValidationService;
 
 import java.io.Serializable;
@@ -19,34 +20,33 @@ import java.io.Serializable;
 public class ResultController implements Serializable {
 
     @Inject
-    private AttemptContainer current;
+    private PointData pointData;
 
     @Inject
     private AttemptDAO dao;
 
     @Inject
-    private AreaCheckService areaCheckService;
+    private AttemptFactory attemptFactory;
 
     @Inject
     private ValidationService validationService;
 
-    public String check() {
-        return check(false);
+    public String submit() {
+        return submit(false);
     }
 
-    public String check(boolean redirect) {
+    public String submit(boolean redirect) {
         try {
-            log.info(current.get().toString());
+            log.info(pointData.toString());
 
-            if (!validate()) {
+            Attempt a = attemptFactory.getAttempt(pointData);
+
+            if (!validate(a)) {
                 return null;
             }
             log.info("validation ok");
 
-            current.setResult(areaCheckService.checkArea(current.get()));
-            dao.save(current.get());
-
-            current.reset();
+            dao.save(a);
         }
         catch (Exception e) {
             log.info(e.getMessage());
@@ -60,7 +60,7 @@ public class ResultController implements Serializable {
         return "main";
     }
 
-    public boolean validate() {
-        return validationService.isValid(current.get());
+    public boolean validate(Attempt attempt) {
+        return validationService.isValid(attempt);
     }
 }
