@@ -17,7 +17,7 @@ public class BaseAttemptDAO implements AttemptDAO {
     @Override
     @Transactional
     public List<Attempt> getAll() {
-        return em.createQuery("SELECT a FROM Attempt a order by id desc", Attempt.class)
+        return em.createQuery("FROM Attempt a order by id desc", Attempt.class)
                 .getResultList();
     }
 
@@ -40,18 +40,9 @@ public class BaseAttemptDAO implements AttemptDAO {
         em.persist(attempt);
     }
 
+    @Override
     @Transactional
-    public int getCount() {
-        return em.createQuery("select count(a) from Attempt a", Number.class)
-                .getSingleResult()
-                .intValue();
-    }
-
-    @Transactional
-    public List<Attempt> getList(int start, int count) {
-        return em.createQuery("select a from Attempt a order by id desc", Attempt.class)
-                .setFirstResult(start)
-                .setMaxResults(count)
-                .getResultList();
+    public boolean isEmpty() {
+        return em.createQuery("SELECT EXISTS(a) FROM Attempt a", Boolean.class).getSingleResult();
     }
 }

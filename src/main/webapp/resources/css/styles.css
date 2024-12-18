@@ -119,14 +119,6 @@ label, .text {
 	color: inherit;
 }
 
-#text-error {
-	color: var(--error);
-	font-size: 1.7em;
-	height: 0.5em;
-	margin-top: 1.2em;
-	margin-bottom: 2em;
-}
-
 .graph {
 	text-align: center;
 }
@@ -142,7 +134,7 @@ label, .text {
 }
 
 .x {
-	width: 104%;
+	width: 103%;
 	border-color: var(--dark-pink);
 	background-color: #fff0f5;
 	color: #333;
@@ -157,4 +149,19 @@ label, .text {
 	outline: none;
 	border-color: #ff69b4;
 	box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.messages {
+	margin-top: 1.2em;
+	margin-bottom: 1.2em;
+	max-width: 200px;
+}
+
+#text-error {
+	color: var(--error);
+	font-size: 1.7em;
+	max-width: 200px;
+	/*height: 0.5em;*/
+	margin-top: 1.2em;
+	margin-bottom: 2em;
 }

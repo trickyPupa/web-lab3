@@ -22,13 +22,13 @@ public class Attempt implements Serializable {
     private Long id;
 
     @ValidationX
-    private Double x = 0d;
+    private Double x = 0.0;
 
     @ValidationY
-    private Double y = 0d;
+    private Double y = 0.0;
 
     @ValidationR
-    private Double r = 2d;
+    private Double r = 2.0;
 
     private boolean result;
 

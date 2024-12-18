@@ -1,5 +1,5 @@
 # Используем официальный образ WildFly 15 в качестве базового
-FROM jboss/wildfly:16.0.0.Final
+FROM jboss/wildfly:15.0.1.Final
 
 # Копируем конфигурацию для подключения к PostgreSQL в WildFly
 COPY ./config/standalone15.xml /opt/jboss/wildfly/standalone/configuration/standalone.xml

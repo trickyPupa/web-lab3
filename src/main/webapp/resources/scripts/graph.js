@@ -182,8 +182,6 @@ function graphInit(){
     const context = canvas.getContext('2d');
 
     drawGraph(canvas, context);
-
-    canvas.addEventListener('click', (event) => byClick(event, canvas));
 }
 
 function loadDots() {
@@ -220,5 +218,8 @@ function drawGraph(canvas, context) {
 document.addEventListener('DOMContentLoaded', function() {
     onSliderMove();
     updatePointsFromTable();
-    loadDots();
 });
+
+loadDots();
+const canvas = document.getElementById('canvas');
+canvas.addEventListener('click', (event) => byClick(event, canvas));

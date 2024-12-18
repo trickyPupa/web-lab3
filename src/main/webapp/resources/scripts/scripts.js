@@ -54,35 +54,38 @@ function submitForm() {
     const r = document.querySelector('.r');
 
     console.log(x, y, r);
-    createError("");
 
-    return validate(x, y, r)
-        .then(() => true)
-        .catch((e) => {
-            createError(e);
-            return false;
-        });
+    onSliderMove();
+    // createError("");
+
+    // return validate(x, y, r)
+    //     .then(() => true)
+    //     .catch((e) => {
+    //         createError(e);
+    //         return false;
+    //     });
 }
 
 function validateAndSend(x, y, r) {
     validate(x, y, r)
         .then(() => {
-            setTimeout(() => updatePointsFromTable(), 100);
             sendData(x, y, r);
+            setTimeout(() => updatePointsFromTable(), 100);
         }).catch((error) => {
         createError(error);
     });
 }
 
 function sendData(x, y, r) {
-    document.getElementById('inputs-form:x-hidden').value = x;
-    document.getElementById('inputs-form:y-hidden').value = y;
-    document.getElementById('inputs-form:submit-button').click();
+    document.getElementById('hidden-form:x-hidden').value = x;
+    document.getElementById('hidden-form:y-hidden').value = y;
+    document.getElementById('hidden-form:r-hidden').value = r;
+
+    document.getElementById('hidden-form:hidden-submit-button').click();
 
     console.log("click sended")
 }
 
-// отправка по нажатию
 function byClick(event, canvas) {
     const sliderInstance = ice.ace.instance('inputs-form:slider');
     const r = parseFloat(sliderInstance.getValue());
@@ -111,7 +114,7 @@ function onSliderMove(event) {
     createError("");
 
     graphInit();
-    drawPoints(r);
+    updatePointsFromTable();
 }
 
 const updatePointsFromTable = () => {
@@ -161,4 +164,11 @@ function drawPoints(r) {
     });
 
     console.log(`Redrawn points for R=${r}`);
+}
+
+function clearButtonClick() {
+    setTimeout(() => {
+        graphInit();
+        updatePointsFromTable();
+    }, 100);
 }

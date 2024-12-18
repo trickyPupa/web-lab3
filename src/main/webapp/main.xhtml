@@ -36,7 +36,7 @@
     <tr>
         <td>
             <div class="graph">
-                <canvas id="canvas" width="400" height="400"></canvas>
+                <canvas id="canvas"></canvas>
             </div>
         </td>
         <td>
@@ -45,53 +45,47 @@
                     <h:outputLabel class="text" for="x">
                         Укажите X:
                     </h:outputLabel>
-                    <h:selectOneMenu id="x" value="#{resultController.current.x}" styleClass="x">
-                        <f:selectItems value="#{resultController.current.getXValues()}"/>
-                        <f:ajax event="blur" render="x x-hidden" execute="@this" />
+                    <h:selectOneMenu id="x" value="#{attemptContainer.x}" styleClass="x">
+                        <f:selectItems value="#{attemptContainer.getXValues()}"/>
                     </h:selectOneMenu>
-                    <h:inputHidden id="x-hidden" value="#{resultController.current.x}"/>
                 </div>
                 <div id="y-container" class="container">
                     <h:outputLabel class="text" id="y-label" for="y">
                         Укажите Y:
                     </h:outputLabel>
-                    <h:inputText id="y" styleClass="y" value="#{resultController.current.y}" required="true">
-                        <f:ajax event="blur" render="y y-hidden" execute="@this" />
-                        <f:validateDoubleRange minimum="-5" maximum="5"/>
+                    <h:inputText id="y" styleClass="y" value="#{attemptContainer.y}" required="true">
                         <f:convertNumber />
                     </h:inputText>
-                    <h:inputHidden id="y-hidden" value="#{resultController.current.y}"/>
                 </div>
                 <div id="r-container" class="container">
                     <h:outputLabel class="text">Укажите R:</h:outputLabel>
                     <h:inputText id="r-text" readonly="true"/>
                     <ace:sliderEntry id="slider"
                                      styleClass="r"
-                                     min="1" max="4"
+                                     min="1" max="5"
                                      length="210px"
-                                     stepPercent="16.66667"
+                                     stepPercent="25"
                                      axis="x"
-                                     value="#{resultController.current.r}"
+                                     value="#{attemptContainer.r}"
                                      onSlideEnd="onSliderMove(event)"
                                      clickableRail="true"/>
                 </div>
             </div>
             <p id="text-error"></p>
+            <ace:messages id="messages" styleClass="messages" globalOnly="true" showSummary="true" />
 
             <h:commandButton value="Подтвердить"
-                             action="#{resultController.check}"
+                             action="#{resultController.check(true)}"
                              styleClass="button"
                              id="submit-button"
-                             render="@form records-table"
                              onclick="submitForm();">
-                <ace:ajax execute="@form" render="@form inputs-form:records-table" onSuccess="onSliderMove()"/>
             </h:commandButton>
         </td>
     </tr>
     <tr>
         <td colspan="2">
         <div class="records center-wrapper">
-            <ace:dataTable value="#{resultController.getList()}"
+            <ace:dataTable value="#{indexController.getList()}"
                            var="result"
                            styleClass="records-table"
                            id="records-table">
@@ -127,8 +121,8 @@
     <tr>
         <td>
             <h:form>
-                <h:commandButton ajax="true" value="Очистить" action="#{resultController.clear}"
-                                 styleClass="clear-button button" update="records-table" onClick="updatePointsFromTable()"/>
+                <h:commandButton ajax="true" value="Очистить" action="#{removalController.clear}"
+                                 styleClass="clear-button button" render="inputs-form:records-table" onclick="clearButtonClick();"/>
             </h:form>
         </td>
         <td>
@@ -140,7 +134,17 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2"></td>
+        <td colspan="2">
+            <h:form id="hidden-form" style="display: none;">
+                <h:inputHidden id="x-hidden" value="#{attemptContainer.x}"/>
+                <h:inputHidden id="y-hidden" value="#{attemptContainer.y}"/>
+                <h:inputHidden id="r-hidden" value="#{attemptContainer.r}"/>
+
+                <h:commandButton value="Подтвердить" style="display: none" action="#{resultController.check}" id="hidden-submit-button">
+                    <f:ajax execute="@form" render="inputs-form:records-table" />
+                </h:commandButton>
+            </h:form>
+        </td>
     </tr>
     </tbody>
 </table>

@@ -1,6 +1,8 @@
 package web.services;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -25,6 +27,9 @@ public class BaseValidationService implements ValidationService {
             } else {
                 for (ConstraintViolation<Attempt> c : a) {
                     log.info(c.getMessage());
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, c.getMessage(), null));
+                    return false;
                 }
                 return false;
             }
