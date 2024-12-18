@@ -30,7 +30,7 @@ const checkY = (value) => {
 
 const checkR = (value) => {
     return new Promise((resolve, reject) => {
-        if (isNaN(value) || (1) > value || value > 4) {
+        if (isNaN(value) || (1) > value || value > 5) {
             reject("значение r некорректно");
             console.log(value);
         } else {
