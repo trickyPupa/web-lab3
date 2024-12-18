@@ -70,7 +70,7 @@ function validateAndSend(x, y, r) {
     validate(x, y, r)
         .then(() => {
             sendData(x, y, r);
-            setTimeout(() => updatePointsFromTable(), 100);
+            setTimeout(() => updatePointsFromTable(), 500);
         }).catch((error) => {
         createError(error);
     });
@@ -114,7 +114,7 @@ function onSliderMove(event) {
     createError("");
 
     graphInit();
-    updatePointsFromTable();
+    setTimeout(() => updatePointsFromTable(), 500);
 }
 
 const updatePointsFromTable = () => {
@@ -170,5 +170,5 @@ function clearButtonClick() {
     setTimeout(() => {
         graphInit();
         updatePointsFromTable();
-    }, 100);
+    }, 500);
 }

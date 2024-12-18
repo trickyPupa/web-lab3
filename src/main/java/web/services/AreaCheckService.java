@@ -10,7 +10,7 @@ public class AreaCheckService implements Serializable {
     public boolean checkArea(Attempt attempt) {
         double x = attempt.getX(), y = attempt.getY(), r = attempt.getR();
 
-        if (x >= 0 && y >= 0 && y <= x + r) {
+        if (x >= 0 && y >= 0 && y <= r - x) {
             return true;
         }
         else if (x >= 0 && y <= 0 && y * y + x * x <= r * r / 4) {
