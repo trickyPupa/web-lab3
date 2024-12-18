@@ -1,4 +1,5 @@
 const fillColor = "lightpink";
+const STEP = 50;
 
 function drawAxis(canvas, context) {
     context.beginPath();
@@ -18,7 +19,7 @@ function drawAxis(canvas, context) {
 
 function drawGrid(canvas, context) {
     context.beginPath();
-    const step = 50;
+    const step = STEP;
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -35,14 +36,6 @@ function drawGrid(canvas, context) {
         context.strokeStyle = 'lightgray';
         context.lineWidth = 1;
         context.stroke();
-
-        // context.fillText(x.toString(), centerX + step * x, centerY + gap);
-        // context.beginPath();
-        // context.moveTo(centerX + step * x, centerY - 5);
-        // context.lineTo(centerX + step * x, centerY + 5);
-        // context.strokeStyle = 'black';
-        // context.closePath();
-        // context.stroke();
     }
     for (let y = 0; y < canvas.height / step; y += 1) {
         context.moveTo(0, y * step);
@@ -50,14 +43,6 @@ function drawGrid(canvas, context) {
         context.strokeStyle = 'lightgray';
         context.lineWidth = 1;
         context.stroke();
-
-        // context.fillText(y.toString(), centerX + gap, centerY + step * y + 10);
-        // context.beginPath();
-        // context.moveTo(centerX - 5, centerY + step * y);
-        // context.lineTo(centerX + 5, centerY + step * y);
-        // context.strokeStyle = 'black';
-        // context.closePath();
-        // context.stroke();
     }
 }
 
@@ -159,7 +144,7 @@ function drawCoords(canvas, context, R) {
 }
 
 function drawCoords2(canvas, context, R) {
-    const step = 50;
+    const step = STEP;
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -201,12 +186,25 @@ function graphInit(){
     canvas.addEventListener('click', (event) => byClick(event, canvas));
 }
 
+function loadDots() {
+    const pointsData = sessionStorage.getItem('points');
+    if (pointsData && pointsData.length > 0) {
+        const points = JSON.parse(pointsData);
+        const lastR = points[points.length - 1].r;
+        console.log(`Last R from points: ${lastR}`);
+        drawPoints(lastR);
+        // drawAxis();
+    } else {
+        console.log("No points in session storage");
+    }
+}
+
 function drawGraph(canvas, context) {
-    const rValue = document.querySelector('.r').value
+    const rValue = ice.ace.instance('inputs-form:slider').getValue();
     if (!rValue){
         return;
     }
-    const R = 50 * rValue;
+    const R = STEP * rValue;
 
     canvas.width = 500;
     canvas.height = 500;
@@ -220,8 +218,7 @@ function drawGraph(canvas, context) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    graphInit();
-})
-// window.onload = function () {
-//     graphInit();
-// };
+    onSliderMove();
+    updatePointsFromTable();
+    loadDots();
+});

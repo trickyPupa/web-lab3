@@ -1,0 +1,49 @@
+/* Основная таблица */
+.records-table {
+    border: 2px solid var(--ultra-dark-pink);
+    border-collapse: collapse;
+    border-radius: 10px;
+    width: 100%;
+    background-color: #ffe4e1; /* Светло-розовый фон */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+    padding: 40px;
+
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    max-height: 400px;
+    overflow: scroll;
+}
+
+/* Заголовки таблицы */
+.records-table th {
+    background-color: var(--ultra-dark-pink);
+    color: black; /* Белый текст */
+    padding: 10px;
+    text-align: center;
+    font-family: monospace;
+}
+
+/* Ячейки таблицы */
+.records-table td {
+    padding: 10px;
+    text-align: center;
+    /*border: 1px solid #ffb6c1; !* Розовые границы *!*/
+    border-width: 0;
+    border-radius: 10px;
+}
+
+/* Чередование строк */
+.records-table tr:nth-child(even) {
+    background-color: #f4ccda; /* Светло-розовый для чётных строк */
+}
+
+.records-table tr:nth-child(odd) {
+    background-color: #ffffff; /* Белый для нечётных строк */
+}
+
+/* Эффект наведения на строки */
+.records-table tr:hover {
+    background-color: #ffa2bd; /* Розовый фон при наведении */
+    cursor: pointer;
+}

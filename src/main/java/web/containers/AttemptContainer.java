@@ -1,5 +1,6 @@
 package web.containers;
 
+import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import lombok.experimental.Delegate;
@@ -9,7 +10,7 @@ import web.models.Attempt;
 import java.io.Serializable;
 import java.util.List;
 
-@Named
+@ManagedBean
 @SessionScoped
 public class AttemptContainer implements Serializable {
     @Delegate

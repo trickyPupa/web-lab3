@@ -49,7 +49,7 @@ function validate(x, y, r) {
 
 function submitForm() {
     // event.preventDefault();
-    const x = document.querySelector(".x");
+    const x = parseFloat(document.querySelector(".x"));
     const y = document.querySelector('.y');
     const r = document.querySelector('.r');
 
@@ -67,6 +67,7 @@ function submitForm() {
 function validateAndSend(x, y, r) {
     validate(x, y, r)
         .then(() => {
+            setTimeout(() => updatePointsFromTable(), 100);
             sendData(x, y, r);
         }).catch((error) => {
         createError(error);
@@ -81,51 +82,83 @@ function sendData(x, y, r) {
     console.log("click sended")
 }
 
-// отрисовка
-function drawDot(x, y, r, status) {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const formula = (coord, radius) => (200 + (4 * coord * 40) / radius);
-    ctx.beginPath();
-    ctx.fillStyle = status ? '#52cf41' : '#EE204D';
-    ctx.moveTo(200, 200);
-    ctx.arc(formula(x, r), formula(-y, r), 5, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.closePath();
-    console.log("dot has been drawn");
-}
-
 // отправка по нажатию
 function byClick(event, canvas) {
-    const r = document.querySelector('.r');
-
-    if (!r) {
-        createError("r не определен");
-        return;
-    }
+    const sliderInstance = ice.ace.instance('inputs-form:slider');
+    const r = parseFloat(sliderInstance.getValue());
 
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const R = 50 * r.value;
+    const R = STEP * r;
 
     const canvasX = x - canvas.width / 2;
     const canvasY = canvas.height / 2 - y;
 
-    const xValue = (canvasX / R * r.value).toFixed(4);
-    const yValue = (canvasY / R * r.value).toFixed(4);
+    const xValue = (canvasX / R * r).toFixed(4);
+    const yValue = (canvasY / R * r).toFixed(4);
 
-    console.log(`Данные нажатия: (${xValue}, ${yValue}, ${r.value})`);
+    console.log(`Данные нажатия: (${xValue}, ${yValue}, ${r})`);
 
-    validateAndSend(xValue, yValue, r.value);
+    validateAndSend(xValue, yValue, r);
 }
 
-function handleSliderChange() {
-    let sliderValue = ice.ace.instance('inputs-form:slider').getValue();
-    sliderValue = Math.round(sliderValue / 0.5) * 0.5;
+function onSliderMove(event) {
+    const sliderInstance = ice.ace.instance('inputs-form:slider');
+    const r = sliderInstance.getValue();
+    document.getElementById('inputs-form:r-text').value = r;
 
-    document.getElementById('inputs-form:r').value = sliderValue;
-    ice.ace.instance('inputs-form:slider').setValue(sliderValue);
+    createError("");
 
     graphInit();
+    drawPoints(r);
+}
+
+const updatePointsFromTable = () => {
+    const table = document.getElementById("inputs-form:records-table");
+    const rows = table.querySelectorAll(".records-table tbody tr");
+    const points = [];
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll(".records-table td");
+        const x = parseFloat(cells[0].textContent.trim());
+        const y = parseFloat(cells[1].textContent.trim());
+        const r = parseFloat(cells[2].textContent.trim());
+        const status = cells[3].textContent.trim().toLowerCase() === 'true';
+        points.push({ x, y, r, status });
+    });
+
+    sessionStorage.setItem('points', JSON.stringify(points));
+    console.log("Updated points from table:", points);
+
+    const sliderInstance = ice.ace.instance('inputs-form:slider');
+    const currentR = parseFloat(sliderInstance.getValue());
+    drawPoints(currentR);
+
+    return points;
+};
+
+function drawPoints(r) {
+    const pointsData = sessionStorage.getItem('points');
+    if (!pointsData) {
+        console.log("No points to redraw");
+        return;
+    }
+
+    const points = JSON.parse(pointsData);
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    points.forEach(point => {
+        const x = canvas.width / 2 + (point.x * STEP / point.r) * r;
+        const y = canvas.height / 2 - (point.y * STEP / point.r) * r;
+
+        ctx.fillStyle = point.status ? '#5cdc5f' : '#e44242';
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.closePath();
+    });
+
+    console.log(`Redrawn points for R=${r}`);
 }

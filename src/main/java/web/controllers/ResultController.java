@@ -14,7 +14,6 @@ import web.dao.AttemptDAO;
 import web.services.ValidationService;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Log4j2
@@ -50,9 +49,11 @@ public class ResultController implements Serializable {
             current.setResult(areaCheckService.checkArea(current.get()));
             dao.save(current.get());
             current.reset();
+
+            log.info(dao.getAll());
         }
         catch (Exception e) {
-            ;
+            log.info(e.getMessage());
         }
 
         return "main";

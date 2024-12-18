@@ -119,17 +119,6 @@ label, .text {
 	color: inherit;
 }
 
-/*.records-table {*/
-/*	border: 2px var(--ultra-dark-pink) solid;*/
-/*	border-collapse: collapse;*/
-/*	margin-top: 2em;*/
-/*}*/
-
-/*.records-table th, .records-table td {*/
-/*	padding: 1em;*/
-/*	border: 1px var(--dark-pink) solid;*/
-/*}*/
-
 #text-error {
 	color: var(--error);
 	font-size: 1.7em;
@@ -144,4 +133,28 @@ label, .text {
 
 .placeholder {
 	visibility: hidden;
+}
+
+.x-container {
+	line-height: 10px;
+	font-size: 1.4em;
+	align-self: flex-start;
+}
+
+.x {
+	width: 104%;
+	border-color: var(--dark-pink);
+	background-color: #fff0f5;
+	color: #333;
+	cursor: pointer;
+}
+
+.x:hover {
+	border-color: var(--my-border-color); /* Цвет рамки при наведении */
+}
+
+.x:focus {
+	outline: none;
+	border-color: #ff69b4;
+	box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
 }
