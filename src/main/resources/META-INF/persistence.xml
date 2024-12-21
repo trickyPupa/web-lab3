@@ -5,7 +5,7 @@
              version="2.1">
     <persistence-unit name="web3" transaction-type="JTA">
         <jta-data-source>java:/jdbc/PostgresDS</jta-data-source>
-        <class>web.models.Attempt</class>
+        <class>web.models.Point</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.show_sql" value="false"/>

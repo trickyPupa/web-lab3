@@ -1,14 +1,11 @@
 package web.containers;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import web.models.Attempt;
 
 import java.io.Serializable;
 import java.util.Arrays;

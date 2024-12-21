@@ -1,7 +1,7 @@
 package web.controllers;
 
 import lombok.extern.log4j.Log4j2;
-import web.dao.AttemptDAO;
+import web.dao.PointDAO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @ApplicationScoped
 public class RemovalController implements Serializable {
     @Inject
-    private AttemptDAO dao;
+    private PointDAO dao;
 
     public void clear() {
         dao.deleteAll();

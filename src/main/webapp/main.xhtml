@@ -75,7 +75,7 @@
             <ace:messages id="messages" styleClass="messages" globalOnly="true" showSummary="true" />
 
             <h:commandButton value="Подтвердить"
-                             action="#{resultController.submit(true)}"
+                             action="#{resultController.submit}"
                              styleClass="button"
                              id="submit-button"
                              onclick="submitForm();">
@@ -140,7 +140,13 @@
                 <h:inputHidden id="y-hidden" value="#{point.y}"/>
                 <h:inputHidden id="r-hidden" value="#{point.r}"/>
 
-                <h:commandButton value="Подтвердить" style="display: none" action="#{resultController.submit}" id="hidden-submit-button">
+                <h:inputHidden id="redirect" value="#{response.redirect}"/>
+
+                <h:commandButton value="Подтвердить"
+                                 style="display: none"
+                                 action="#{resultController.submit}"
+                                 id="hidden-submit-button"
+                                 onclick="document.getElementById('hidden-form:redirect').value = 'false'">
                     <f:ajax execute="@form" render="inputs-form:records-table" />
                 </h:commandButton>
             </h:form>

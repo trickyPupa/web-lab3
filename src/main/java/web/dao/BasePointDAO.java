@@ -4,45 +4,45 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import web.models.Attempt;
+import web.models.Point;
 
 import java.util.List;
 
 @ApplicationScoped
-public class BaseAttemptDAO implements AttemptDAO {
+public class BasePointDAO implements PointDAO {
 
     @PersistenceContext(unitName = "web3")
     private EntityManager em;
 
     @Override
     @Transactional
-    public List<Attempt> getAll() {
-        return em.createQuery("FROM Attempt a order by id desc", Attempt.class)
+    public List<Point> getAll() {
+        return em.createQuery("FROM Point a order by id desc", Point.class)
                 .getResultList();
     }
 
     @Override
     @Transactional
-    public Attempt get(long id) {
-        return em.find(Attempt.class, id);
+    public Point get(long id) {
+        return em.find(Point.class, id);
     }
 
     @Override
     @Transactional
     public void deleteAll() {
-        em.createQuery("DELETE FROM Attempt a")
+        em.createQuery("DELETE FROM Point a")
                 .executeUpdate();
     }
 
     @Override
     @Transactional
-    public void save(Attempt attempt) {
-        em.persist(attempt);
+    public void save(Point point) {
+        em.persist(point);
     }
 
     @Override
     @Transactional
     public boolean isEmpty() {
-        return em.createQuery("SELECT EXISTS(a) FROM Attempt a", Boolean.class).getSingleResult();
+        return em.createQuery("SELECT EXISTS(a) FROM Point a", Boolean.class).getSingleResult();
     }
 }

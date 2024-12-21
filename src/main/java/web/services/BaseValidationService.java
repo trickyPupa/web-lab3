@@ -9,7 +9,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import lombok.extern.log4j.Log4j2;
-import web.models.Attempt;
+import web.models.Point;
 
 import java.util.Set;
 
@@ -17,15 +17,15 @@ import java.util.Set;
 @ApplicationScoped
 public class BaseValidationService implements ValidationService {
     @Override
-    public boolean isValid(Attempt attempt) {
+    public boolean isValid(Point point) {
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
             Validator validator = factory.getValidator();
 
-            Set<ConstraintViolation<Attempt>> a = validator.validate(attempt);
+            Set<ConstraintViolation<Point>> a = validator.validate(point);
             if (a.isEmpty()) {
                 return true;
             } else {
-                for (ConstraintViolation<Attempt> c : a) {
+                for (ConstraintViolation<Point> c : a) {
                     log.info(c.getMessage());
                     FacesContext context = FacesContext.getCurrentInstance();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, c.getMessage(), null));

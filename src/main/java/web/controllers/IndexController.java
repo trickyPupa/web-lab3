@@ -1,8 +1,8 @@
 package web.controllers;
 
 import lombok.extern.log4j.Log4j2;
-import web.dao.AttemptDAO;
-import web.models.Attempt;
+import web.dao.PointDAO;
+import web.models.Point;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,9 +15,9 @@ import java.util.List;
 @ApplicationScoped
 public class IndexController implements Serializable {
     @Inject
-    private AttemptDAO dao;
+    private PointDAO dao;
 
-    public List<Attempt> getList() {
+    public List<Point> getList() {
         return dao.getAll();
     }
 

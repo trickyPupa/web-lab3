@@ -1,7 +1,7 @@
 package web.services;
 
-import web.models.Attempt;
+import web.models.Point;
 
 public interface ValidationService {
-    public boolean isValid(Attempt attempt);
+    public boolean isValid(Point point);
 }

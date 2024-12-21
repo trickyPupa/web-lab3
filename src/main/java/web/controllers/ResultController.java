@@ -1,16 +1,12 @@
 package web.controllers;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.extern.log4j.Log4j2;
 import web.containers.PointData;
-import web.models.Attempt;
-import web.dao.AttemptDAO;
-import web.services.AttemptFactory;
-import web.services.ValidationService;
+import web.services.PointManager;
+import web.services.ResponseManager;
 
 import java.io.Serializable;
 
@@ -23,44 +19,14 @@ public class ResultController implements Serializable {
     private PointData pointData;
 
     @Inject
-    private AttemptDAO dao;
+    private PointManager pointManager;
 
     @Inject
-    private AttemptFactory attemptFactory;
-
-    @Inject
-    private ValidationService validationService;
+    private ResponseManager responseManager;
 
     public String submit() {
-        return submit(false);
-    }
+        pointManager.addPoint(pointData);
 
-    public String submit(boolean redirect) {
-        try {
-            log.info(pointData.toString());
-
-            Attempt a = attemptFactory.getAttempt(pointData);
-
-            if (!validate(a)) {
-                return null;
-            }
-            log.info("validation ok");
-
-            dao.save(a);
-        }
-        catch (Exception e) {
-            log.info(e.getMessage());
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknown error" , e.getMessage()));
-        }
-
-        if (redirect) {
-            return "main?faces-redirect=true";
-        }
-        return "main";
-    }
-
-    public boolean validate(Attempt attempt) {
-        return validationService.isValid(attempt);
+        return responseManager.mainPageResponse();
     }
 }

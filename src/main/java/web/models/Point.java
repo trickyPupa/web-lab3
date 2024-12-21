@@ -7,13 +7,11 @@ import web.validation.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "attempts")
-public class Attempt implements Serializable {
+@Table(name = "points")
+public class Point implements Serializable {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Id
