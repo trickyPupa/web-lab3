@@ -10,6 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 
 @Stateless
@@ -22,7 +23,7 @@ public class PointFactory {
     @EJB
     private ValidationService validationService;
 
-    public Point getPoint(PointData data) {
+    public Point getPoint(PointData data) throws ValidationException {
         Point a = new Point();
         a.setX(data.getXValue());
         a.setY(data.getYValue());
@@ -31,15 +32,15 @@ public class PointFactory {
         a.setResult(areaCheckService.checkAreaHit(a));
         a.setCreatedAt(LocalDateTime.now());
 
-        if (!validate(a)) {
-            return null;
-        }
-        log.info("validation ok");
+        validate(a);
 
         return a;
     }
 
-    public boolean validate(Point point) {
-        return validationService.isValid(point);
+    public void validate(Point point) throws ValidationException{
+        if (!validationService.isValid(point)) {
+            throw new ValidationException();
+        }
+        log.info("validation ok");
     }
 }

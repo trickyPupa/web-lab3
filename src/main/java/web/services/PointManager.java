@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.validation.ValidationException;
 
 @Log4j2
 @Stateless
@@ -28,8 +29,12 @@ public class PointManager {
 
             dao.save(a);
         }
+        catch (ValidationException e) {
+            log.error(e.getMessage());
+        }
         catch (Exception e) {
             log.info(e.getMessage());
+
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknown error" , e.getMessage()));
         }
