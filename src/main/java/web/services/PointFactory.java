@@ -6,10 +6,6 @@ import web.models.Point;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 
@@ -23,7 +19,7 @@ public class PointFactory {
     @EJB
     private ValidationService validationService;
 
-    public Point getPoint(PointData data) throws ValidationException {
+    public Point getPoint(PointData data) {
         Point a = new Point();
         a.setX(data.getXValue());
         a.setY(data.getYValue());
@@ -37,7 +33,7 @@ public class PointFactory {
         return a;
     }
 
-    public void validate(Point point) throws ValidationException{
+    public void validate(Point point) throws ValidationException {
         if (!validationService.isValid(point)) {
             throw new ValidationException();
         }

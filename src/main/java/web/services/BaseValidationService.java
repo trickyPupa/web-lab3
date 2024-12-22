@@ -28,6 +28,7 @@ public class BaseValidationService implements ValidationService {
             } else {
                 for (ConstraintViolation<Point> c : a) {
                     log.info(c.getMessage());
+
                     FacesContext context = FacesContext.getCurrentInstance();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, c.getMessage(), null));
                     return false;

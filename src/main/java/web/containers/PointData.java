@@ -13,7 +13,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@Log4j2
 @Named("point")
 @RequestScoped
 public class PointData implements Serializable {

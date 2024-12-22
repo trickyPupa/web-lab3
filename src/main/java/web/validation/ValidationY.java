@@ -12,9 +12,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {})
-@DecimalMax(value = "5.0", message = "y coordinate must be less than 5.0")
-@DecimalMin(value = "-5.0", message = "y coordinate must be greater than -5.0")
+@Constraint(validatedBy = {ValidatorY.class})
 public @interface ValidationY {
     String message() default "Incorrect y coordinate";
 
