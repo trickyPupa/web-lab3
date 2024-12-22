@@ -1,7 +1,7 @@
 package web.controllers;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.extern.log4j.Log4j2;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Log4j2
 @Named("resultController")
-@Stateless
+@ApplicationScoped
 public class ResultController implements Serializable {
 
     @Inject
