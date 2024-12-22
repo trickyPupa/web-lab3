@@ -5,21 +5,19 @@ import web.containers.PointData;
 import web.dao.PointDAO;
 import web.models.Point;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 @Log4j2
-@ApplicationScoped
-@Named
+@Stateless
 public class PointManager {
 
-    @Inject
+    @EJB
     private PointDAO dao;
 
-    @Inject
+    @EJB
     private PointFactory pointFactory;
 
     public void addPoint(PointData data) {

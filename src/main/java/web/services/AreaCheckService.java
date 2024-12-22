@@ -1,11 +1,12 @@
 package web.services;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import web.models.Point;
 
 import java.io.Serializable;
 
-@ApplicationScoped
+@Stateless
 public class AreaCheckService implements Serializable {
     public boolean checkAreaHit(Point point) {
         double x = point.getX(), y = point.getY(), r = point.getR();

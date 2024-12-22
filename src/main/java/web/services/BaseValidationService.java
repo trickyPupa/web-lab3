@@ -1,5 +1,6 @@
 package web.services;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,7 +15,7 @@ import web.models.Point;
 import java.util.Set;
 
 @Log4j2
-@ApplicationScoped
+@Stateless
 public class BaseValidationService implements ValidationService {
     @Override
     public boolean isValid(Point point) {

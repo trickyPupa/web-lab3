@@ -4,20 +4,22 @@ import lombok.extern.log4j.Log4j2;
 import web.containers.PointData;
 import web.models.Point;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import java.time.LocalDateTime;
 
-@ApplicationScoped
-@Named
+@Stateless
 @Log4j2
 public class PointFactory {
 
-    @Inject
+    @EJB
     private AreaCheckService areaCheckService;
 
-    @Inject
+    @EJB
     private ValidationService validationService;
 
     public Point getPoint(PointData data) {
